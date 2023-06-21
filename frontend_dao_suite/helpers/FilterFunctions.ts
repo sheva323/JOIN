@@ -17,23 +17,24 @@ export const FilterEvent = async (
     const { data } = await db
       .collection("Event")
       .where("start_date_timestamp", ">", startDate)
+      .where("platform", "==", 'Twitter')
       .get();
+    return data;
+    // const filteredResults = data.filter((item) => {
+    //   return (
+    //     ((twitterChecked && item.data.platform === "Twitter") ||
+    //       (twitchChecked && item.data.platform === "Twitch") ||
+    //       (youtubeChecked && item.data.platform === "Youtube")) &&
+    //     item.data.is_online === isOnline &&
+    //     item.data.language === language
+    //   );
+    // });
 
-    const filteredResults = data.filter((item) => {
-      return (
-        ((twitterChecked && item.data.platform === "Twitter") ||
-          (twitchChecked && item.data.platform === "Twitch") ||
-          (youtubeChecked && item.data.platform === "Youtube")) &&
-        item.data.is_online === isOnline &&
-        item.data.language === language
-      );
-    });
+    // filteredResults.sort(
+    //   (a, b) => a.data.start_date_timestamp - b.data.start_date_timestamp
+    // );
 
-    filteredResults.sort(
-      (a, b) => a.data.start_date_timestamp - b.data.start_date_timestamp
-    );
-
-    return filteredResults;
+    // return filteredResults;
   } catch (error) {
     throw new Error(`Error filtering events: ${error}`);
   }

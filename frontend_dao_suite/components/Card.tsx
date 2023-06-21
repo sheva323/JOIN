@@ -28,7 +28,7 @@ import SheduleModal from "./modals/ScheduleModal";
 import { useContext, useEffect, useState } from "react";
 import { ReadTagsFromEvent } from "../helpers/PolybaseData";
 import { CollectionRecordResponse } from "@polybase/client/dist/Record";
-import { returnTagNames } from "../helpers/FetchData";
+import { ReturnTagNames } from "../helpers/FetchData";
 import { EventsContext } from "../context/EventsContext";
 import CardDetails from "./modals/CardDetails";
 import ScheduleModal from "./modals/ScheduleModal";
@@ -45,18 +45,19 @@ export default function CardEvent({ event }: Props) {
   const [details, setDetails] = useState(false);
   let bg = useColorModeValue("white", "neutrals.gray.400");
   useEffect(() => {
+    readSideFilters();
     if (event?.data.image && event?.data.image !== "")
       setCardImage(`https://ipfs.io/ipfs/${event?.data.image}`);
-    readTags();
   }, []);
-  const readTags = async () => {
+  const readSideFilters = async () => {
     try {
-      // const tags = await ReadTagsFromEvent(event.data.id);
-      // const tagsNames = await returnTagNames(tags.data);
-      // setTags(tagsNames);
-      // if (tagFilters.isFiltered) {
-      //   checkFilterTags(tags.data);
-      // }
+      const tags = await ReadTagsFromEvent(event.data.id);
+      const tagsNames = await ReturnTagNames(tags.data);
+      setTags(tagsNames);
+      console.log(tagsNames);
+      if (tagFilters.isFiltered) {
+        checkFilterTags(tags.data);
+      }
     } catch (error) {
       console.log(error);
     }

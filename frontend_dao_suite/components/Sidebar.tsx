@@ -76,72 +76,36 @@ export const SidebarFilters = ({}) => {
       console.log(error);
     }
   };
-  const createEventManual = async () => {
-    const tags: Tag[] = [
-      { id: "dao", name: "DAO" },
-      { id: "defi", name: "DeFi" },
-    ];
-    try {
-      const startDate = new Date();
-      const endDate = new Date();
-      startDate.setMonth(startDate.getMonth() + 1);
-      endDate.setMonth(endDate.getMonth() + 2);
-      endDate.setDate(endDate.getDate() + 3);
-      const name = "event 007";
-      const newEvent = await CreateEvent(
-        nanoid(),
-        "calendar001",
-        name,
-        "this is a basic description of the event",
-        "QmR8h1s4cyNJELt1MBeyVJUgArDLNvseeiXAwtLicWDQvg",
-        "Dash House California",
-        Platform.Twitter,
-        "https://twitter.com/marketersweb3/status/1665810617704259584?s=20",
-        true,
-        moment(startDate).unix(),
-        moment(endDate).unix(),
-        moment().unix(),
-        tags
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const addTag = async () => {
-    try {
-      const tag: Tag = {
-        id: "dao",
-        name: "DAO",
-      };
-      const ans = await AddTagOnEvent("gjYYD5IiM8zAjInMrchna", tag);
-    } catch (error) {}
-  };
   //Buttons
   const onFilter = async () => {
     try {
+      const [startOfDayUnix] = getUnixTimestampsForToday();
+      
       const response = await FilterEvent(
         twitterChecked, 
         twitchChecked, 
         youtubeChecked,
         isOnline,
         selectedLanguage,
-        1674066800
+        startOfDayUnix
       );
-      setEvents(response);
-      setTagFilters({
-        ...tagFilters,
-        conference:  conferenceChecked,
-        hackaton: hackathonChecked,
-        meetUp : meetupChecked,
-        asia: asiaChecked,
-        latam: latamChecked,
-        europe: europeChecked,
-        ethereum : ethereumChecked,
-        polygon: polygonChecked,
-        bitcoin: bitcoinChecked,
-        workshop: meetupChecked,
-        isFiltered: true,
-      })
+      console.log(response);
+      
+      // setEvents(response);
+      // setTagFilters({
+      //   ...tagFilters,
+      //   conference:  conferenceChecked,
+      //   hackaton: hackathonChecked,
+      //   meetUp : meetupChecked,
+      //   asia: asiaChecked,
+      //   latam: latamChecked,
+      //   europe: europeChecked,
+      //   ethereum : ethereumChecked,
+      //   polygon: polygonChecked,
+      //   bitcoin: bitcoinChecked,
+      //   workshop: meetupChecked,
+      //   isFiltered: true,
+      // })
     } catch (error) {
       console.log(error);
     }
@@ -419,7 +383,7 @@ export const SidebarFilters = ({}) => {
             </FormControl>
           </VStack>
           <VStack width="100%">
-            <Button variant="primary" width={"100%"} onClick={onFilter}>
+            <Button variant="primary" width={"70%"} onClick={onFilter}>
               Filter
             </Button>
           </VStack>
