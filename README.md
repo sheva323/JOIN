@@ -163,6 +163,7 @@ Enjoy using Join and stay connected with the exciting world of tech and web3 eve
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
+
 # Usage
 
 Acá va el demo en video y un par de bundles
@@ -178,52 +179,21 @@ _For more examples, please refer to the [Documentation](https://example.com)_ --
 <!-- ROADMAP -->
 # Roadmap
 
-Acá va la presentación con un par de puntos de futuros features y roadmap
 
-<!-- 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-- agendar recordatorios de eventos
-- ver un dashboard tipo calendario de todos los eventos donde te has sucrito
-- filtrar facilmente eventos segun fecha: today, weekend, next week
-- poder tener un calendario privado con eventos personales o secretos
-- dev tooling para load fixtures en Polygon
-- visualizacion concentrada de eventos en distintas plataformas
-- agendar varios recordatorios de un mismo evento
-Victor, [16/06/2023, 10:16:12 AM]:
-esto deberia quedar hardcodeado en algun lado como minimo
-
-- filtrar facilment por Tag (categorizacion ultra-flexible)
-- Gasless
-
-#Feature
-Después de terminado el evento, Actualizar con enlace a grabación, slides, repos o cosas de interés histórico
-Esto me habilita poder buscar hacia atrás en el tiempo eventos y poderlos ver a demanda y tener en un solo sitio todos los recursos que de allí salieron
-Esto también que lo pueda hacer cualquiera
-
-#Feature 
-Economics:
-Qué incentivos podemos darle a la comunidad para que cree eventos,
-Para que actualice un evento pasado con el enlace de la grabación
-Para que reporte un evento que tiene info maliciosa o errada
-Etc
+- [x] Event reminder scheduling
+- [x] Event filtering by date: today, weekend, next week
+- [x] Dev tooling for loading fixtures on Polygon
+- [x] Aggregated event visualization across different platforms
+- [x] Gasless transactions
+- [ ] Add Protocol of Events (content-agnostic)
+- [ ] DAO Suit Tooling
+- [ ] Payment Method
+- [ ] Decentralized Mentoring
+- [ ] SDK for easily creating events from any source
+- [ ] After an event is completed, update with links to recordings, slides, repositories, or other historical resources. This allows users to look back in time and view events on-demand, having all the related resources in one place.
+- [ ] Community events incentives for creating events, updating a past event with recording links, reporting events with malicious or incorrect information, etc.
 
 
-@ocandoangela feature
-SDK para crear eventos facilmente desde cualquier lado
-
-- Empezamos pensando en las herramientas que usamos todos los dias  y los problemas mas comunes que tenemos. 
-- Definimos una herramienta para recordar eventos, debido a que muchas veces los eventos se pasan y/o por ejemplo el calendario de google es muy invasivo con privacidad .
-- Mas alla  de un calendar, queremos ser una suite de herramientas descentralizadas para personas y DAOS. 
-- En primera instancia estamos pensando en el tema de los eventos, pero estamos pensando en la integracion de otros features como llamadas, docs, mentorias, pagos
-
- -->
 
 See the [open issues](https://github.com/sheva323/JOIN/issues) for a full list of proposed features (and known issues).
 
@@ -231,6 +201,7 @@ See the [open issues](https://github.com/sheva323/JOIN/issues) for a full list o
 
 
 <!-- CONTRIBUTING -->
+
 # Contributing
 
 At Join, we believe that contributions from the open-source community are what make our project truly amazing. We appreciate any contributions you make and welcome your ideas, suggestions, and enhancements.
