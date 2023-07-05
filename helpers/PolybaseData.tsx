@@ -65,12 +65,12 @@ export async function ShowAllEventsFromToday(startDate: number) {
   try {
     const { data } = await db
       .collection("Event")
-      .where("start_date_timestamp", ">", startDate)
+      .where("start_date_timestamp", ">", 1674076800)
       .sort("start_date_timestamp", "asc")
       .get();
     return data;
   } catch (error) {
-    throw new Error(`Error filtering events: ${error}`);
+    return error;
   }
 }
 export async function FilterEventsBetweenDates(
