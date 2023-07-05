@@ -1,6 +1,6 @@
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react';
 import { checkboxTheme } from "../components/Checkbox";
-
+import { switchTheme } from '../components/Switch'
 
 import {
   useColorModeValue,
@@ -133,7 +133,7 @@ const theme = extendTheme({
       },
     },
     Checkbox: checkboxTheme,
-
+    Switch: switchTheme,
   },
  })
 
