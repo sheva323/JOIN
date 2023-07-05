@@ -300,25 +300,29 @@ export default function ScheduleModal({
               <ModalCloseButton />
               <ModalBody>
                 {createUser ? (
-                  <GridItem height={"full"} width="80%" colSpan={3} p={4}>
+                  <GridItem height={"full"} width="100%" colSpan={3} p={4}>
                     <Text
                       as="h4"
                       fontWeight={"medium"}
                       fontSize="lg"
                       my={2}
+                      align={'center'}
                       color="neutrals.gray.200"
                     >
                       {modalInfo.bodyTxt}
                     </Text>
+                    <Flex flexDirection={'column'} justify="center" align="center">
                     <Button
                       variant="primary"
                       colorScheme="blue"
+                      width={"40%"}
                       size="md"
                       style={{ margin: 30 }}
                       onClick={createUserProfile}
                     >
                       {modalInfo.buttonTxt}
                     </Button>
+                    </Flex>
                   </GridItem>
                 ) : (
                   <Grid mt="2" templateColumns="repeat(5, 1fr)">
