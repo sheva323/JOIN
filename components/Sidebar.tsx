@@ -185,6 +185,7 @@ export const SidebarFilters = ({}) => {
               Activity
             </Heading>
             <Checkbox
+              colorScheme="brand.primary.default"
               fontWeight={"normal"}
               color={useColorModeValue(
                 "neutrals.gray.200",

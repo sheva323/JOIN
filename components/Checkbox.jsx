@@ -11,7 +11,14 @@ const { definePartsStyle, defineMultiStyleConfig } =
 const baseStyle = definePartsStyle({
   label: {},
   control: {
-
+    _checked: {
+      bg: "brand.primary.default",
+      border: 0
+    },
+    _hover: {
+      bg: "brand.primary.default",
+      border: 0 
+    }
   }
 });
 
