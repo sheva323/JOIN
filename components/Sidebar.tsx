@@ -38,30 +38,23 @@ import { nanoid } from "nanoid";
 import moment from "moment";
 import { FilterEvent } from "../helpers/FilterFunctions";
 
-
 import { Polybase } from "@polybase/client";
-import { useCollection, useDocument, usePolybase } from '@polybase/react'
+import { useCollection, useDocument, usePolybase } from "@polybase/react";
 
 export const SidebarFilters = ({}) => {
   const { colorMode } = useColorMode();
   const logoSrc = colorMode === "dark" ? logoDark : logoLight;
   const { setEvents, setTagFilters, tagFilters } = useContext(EventsContext);
-  const [dateFilter, setDateFilter] = useState<string>("0");
-  const [twitterChecked, setTwitterChecked] = useState(false);
-  const [twitchChecked, setTwitchChecked] = useState(false);
-  const [youtubeChecked, setYoutubeChecked] = useState(false);
+  const [platform, setPlatform] = useState<string>("None");
+  const [location, setLocation] = useState<string>("None");
   const [conferenceChecked, setConferenceChecked] = useState(false);
   const [hackathonChecked, setHackathonChecked] = useState(false);
   const [meetupChecked, setMeetupChecked] = useState(false);
-  const [asiaChecked, setAsiaChecked] = useState(false);
-  const [latamChecked, setLatamChecked] = useState(false);
-  const [europeChecked, setEuropeChecked] = useState(false);
   const [ethereumChecked, setEthereumChecked] = useState(false);
   const [polygonChecked, setPolygonChecked] = useState(false);
   const [bitcoinChecked, setBitcoinChecked] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('English');
-
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("English");
 
   const db = new Polybase({
     defaultNamespace: process.env.NEXT_PUBLIC_NAMESPACE,
@@ -80,38 +73,26 @@ export const SidebarFilters = ({}) => {
   const onFilter = async () => {
     try {
       const [startOfDayUnix] = getUnixTimestampsForToday();
-      
+
       const response = await FilterEvent(
-        twitterChecked, 
-        twitchChecked, 
-        youtubeChecked,
+        platform,
         isOnline,
         selectedLanguage,
         startOfDayUnix
       );
       console.log(response);
-      
-      // setEvents(response);
-      // setTagFilters({
-      //   ...tagFilters,
-      //   conference:  conferenceChecked,
-      //   hackaton: hackathonChecked,
-      //   meetUp : meetupChecked,
-      //   asia: asiaChecked,
-      //   latam: latamChecked,
-      //   europe: europeChecked,
-      //   ethereum : ethereumChecked,
-      //   polygon: polygonChecked,
-      //   bitcoin: bitcoinChecked,
-      //   workshop: meetupChecked,
-      //   isFiltered: true,
-      // })
     } catch (error) {
       console.log(error);
     }
   };
   const handleLanguageChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedLanguage(event.target.value);
+  };
+  const handleplatformChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPlatform(event.target.value);
+  };
+  const handleLocation = (event: ChangeEvent<HTMLInputElement>) => {
+    setPlatform(event.target.value);
   };
   return (
     <Box
@@ -146,39 +127,52 @@ export const SidebarFilters = ({}) => {
             >
               Platform
             </Heading>
-            <Checkbox
-              fontWeight={"normal"}
+            <RadioGroup
               color={useColorModeValue(
                 "neutrals.gray.200",
                 "neutrals.gray.200"
               )}
-              isChecked={twitterChecked}
-              onChange={() => setTwitterChecked(!twitterChecked)}
-            >
-              Twitter
-            </Checkbox>
-            <Checkbox
               fontWeight={"normal"}
-              color={useColorModeValue(
-                "neutrals.gray.200",
-                "neutrals.gray.200"
-              )}
-              isChecked={twitchChecked}
-              onChange={() => setTwitchChecked(!twitchChecked)}
+              defaultValue="None"
             >
-              Twitch
-            </Checkbox>
-            <Checkbox
-              fontWeight={"normal"}
-              color={useColorModeValue(
-                "neutrals.gray.200",
-                "neutrals.gray.200"
-              )}
-              isChecked={youtubeChecked}
-              onChange={() => setYoutubeChecked(!youtubeChecked)}
-            >
-              Youtube
-            </Checkbox>
+              <Stack direction="column">
+                <Radio
+                  value="Twitter"
+                  checked={platform === "Twitter"}
+                  onChange={handleplatformChange}
+                >
+                  Twitter
+                </Radio>
+                <Radio
+                  value="Twitch"
+                  checked={platform === "Twitch"}
+                  onChange={handleplatformChange}
+                >
+                  Twitch
+                </Radio>
+                <Radio
+                  value="Youtube"
+                  checked={platform === "Youtube"}
+                  onChange={handleplatformChange}
+                >
+                  Youtube
+                </Radio>
+                <Radio
+                  value="ZoomMeet"
+                  checked={platform === "ZoomMeet"}
+                  onChange={handleplatformChange}
+                >
+                  Zoom / Meet
+                </Radio>
+                <Radio
+                  value="None"
+                  checked={platform === "None"}
+                  onChange={handleplatformChange}
+                >
+                  None
+                </Radio>
+              </Stack>
+            </RadioGroup>
           </VStack>
           <VStack align={"start"}>
             <Heading
@@ -234,39 +228,52 @@ export const SidebarFilters = ({}) => {
             >
               Location
             </Heading>
-            <Checkbox
-              fontWeight={"normal"}
+            <RadioGroup
               color={useColorModeValue(
                 "neutrals.gray.200",
                 "neutrals.gray.200"
               )}
-              isChecked={asiaChecked}
-              onChange={() => setMeetupChecked(!asiaChecked)}
-            >
-              Asia
-            </Checkbox>
-            <Checkbox
               fontWeight={"normal"}
-              color={useColorModeValue(
-                "neutrals.gray.200",
-                "neutrals.gray.200"
-              )}
-              isChecked={latamChecked}
-              onChange={() => setLatamChecked(!latamChecked)}
+              defaultValue="None"
             >
-              LatAm
-            </Checkbox>
-            <Checkbox
-              fontWeight={"normal"}
-              color={useColorModeValue(
-                "neutrals.gray.200",
-                "neutrals.gray.200"
-              )}
-              isChecked={europeChecked}
-              onChange={() => setEuropeChecked(!europeChecked)}
-            >
-              Europe
-            </Checkbox>
+              <Stack direction="column">
+                <Radio
+                  value="Asia"
+                  checked={location === "Asia"}
+                  onChange={handleLocation}
+                >
+                  Asia
+                </Radio>
+                <Radio
+                  value="LatAm"
+                  checked={location === "LatAm"}
+                  onChange={handleLocation}
+                >
+                  LatAm
+                </Radio>
+                <Radio
+                  value="Europe"
+                  checked={location === "Europe"}
+                  onChange={handleLocation}
+                >
+                  Europe
+                </Radio>
+                <Radio
+                  value="Africa"
+                  checked={location === "Africa"}
+                  onChange={handleLocation}
+                >
+                  Africa
+                </Radio>
+                <Radio
+                  value="None"
+                  checked={location === "None"}
+                  onChange={handleLocation}
+                >
+                  None
+                </Radio>
+              </Stack>
+            </RadioGroup>
           </VStack>
           <VStack align={"start"}>
             <Heading
@@ -312,16 +319,6 @@ export const SidebarFilters = ({}) => {
               Bitcoin
             </Checkbox>
           </VStack>
-          {/* <VStack align={'start'}>
-    <Heading size="sm" color={useColorModeValue("neutrals.gray.300", "neutrals.gray.300")}>Date</Heading>
-    <RadioGroup>
-    <Stack direction='column' color={useColorModeValue("neutrals.gray.200", "neutrals.gray.200")} fontWeight={'normal'}>
-      <Radio value='1'>Today</Radio>
-      <Radio value='2'>This week</Radio>
-      <Radio value='3'>This weekend</Radio>
-      </Stack>
-      </RadioGroup>
-    </VStack> */}
           <VStack align={"start"}>
             <Heading
               size="sm"
@@ -340,16 +337,20 @@ export const SidebarFilters = ({}) => {
               fontWeight={"normal"}
             >
               <Stack direction="column">
-                <Radio 
+                <Radio
                   value="English"
-                  checked={selectedLanguage === 'English'}
+                  checked={selectedLanguage === "English"}
                   onChange={handleLanguageChange}
-                >English</Radio>
-                <Radio 
+                >
+                  English
+                </Radio>
+                <Radio
                   value="Spanish"
-                  checked={selectedLanguage === 'Spanish'}
+                  checked={selectedLanguage === "Spanish"}
                   onChange={handleLanguageChange}
-                >Spanish</Radio>
+                >
+                  Spanish
+                </Radio>
               </Stack>
             </RadioGroup>
           </VStack>
@@ -375,7 +376,8 @@ export const SidebarFilters = ({}) => {
                 Online Events
               </FormLabel>
               <Spacer />
-              <Switch id="email-alerts" 
+              <Switch
+                id="email-alerts"
                 onChange={() => setIsOnline(!isOnline)}
                 checked={isOnline}
                 defaultChecked={true}

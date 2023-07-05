@@ -70,7 +70,9 @@ const Home: NextPage = () => {
   };
   const readallEvents = async () => {
     const [startOfDayUnix] = getUnixTimestampsForToday();
-    const eventsRes = await ShowAllEventsFromToday(startOfDayUnix);
+    const eventsRes = await ShowAllEventsFromToday(1674076800);
+    console.log(eventsRes);
+    
     setEvents(eventsRes);
     setButtonWeight(0);
   };
