@@ -6,18 +6,39 @@ const db = new Polybase({
 });
 export const FilterEvent = async (
   platform: string,
-  isOnline: boolean,
+  location: string,
   language: string,
   startDate: number
 ) => {
   try {
-    const { data } = await db
-      .collection("Event")
-      .where("platform", "==", platform)
-      .where("start_date_timestamp", ">", 1674076400)
-      //.where("language", "==", "English")
-      .get();
+    let query = db.collection("Event");
+    
+    if(platform !== "None") {
+      query = query.where("platform", "==", platform);
+    }
+    if(location !== "None"){
+      query = query.where("location", "==", location);
+    }
+    if(language !== "All"){
+      query = query.where("language", "==", language);
+    }
+    
+
+    query = query.where("start_date_timestamp", ">", 1674076700);
+    query = query.sort("start_date_timestamp", "asc");
+
+    const { data } = await query.get();
+
     return data;
+
+
+    // const { data } = await db
+    //   .collection("Event")
+    //   .where("platform", "==", platform)
+    //   .where("start_date_timestamp", ">", 1674076400)
+    //   //.where("language", "==", "English")
+    //   .get();
+    // return data;
   } catch (error) {
     return error;
   }
