@@ -65,6 +65,9 @@ export default function CardDetails({
             src={cardImage}
             alt="Green double couch with wooden legs"
             borderTopRadius="lg"
+            maxH="250px"
+            maxW="100%"
+            objectFit="cover"
           />
           <ModalCloseButton />
           <ModalBody>
