@@ -31,6 +31,15 @@ export default function WithSubnavigation() {
   const bg = useColorModeValue("gray.600", "white");
   const bg2 = useColorModeValue("white", "neutrals.gray.400");
   const textColor = useColorModeValue("neutrals.gray.200", "neutrals.gray.200");
+  const { setCalendarView, calendarView } = useContext(EventsContext);
+  const linkColor = useColorModeValue(
+    "brand.primary.default",
+    "brand.primary.disabled"
+  );
+  const linkHoverColor = useColorModeValue(
+    "brand.primary.hover",
+    "brand.primary.default"
+  );
 
   useEffect(() => {
     if (localStorage.getItem("address")) setIsLogged(true);
@@ -89,9 +98,23 @@ export default function WithSubnavigation() {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Flex display={{ base: "none", md: "flex" }} align="center">
-            <DesktopNav />
+        
           </Flex>
         </Flex>
+        <Link
+          p={2}
+          href={"#"}
+          fontSize={"md"}
+          fontWeight={500}
+          color={linkColor}
+          _hover={{
+            textDecoration: "none",
+            color: linkHoverColor,
+          }}
+          onClick={() => setCalendarView(!calendarView)}
+        >
+          {calendarView ?  'Events' : 'My calendar'}
+        </Link>
         <Tooltip label='Will be available soon...'>
           <Button variant="primary"  mr={6} >
             Create Event
@@ -136,71 +159,71 @@ export default function WithSubnavigation() {
   );
 }
 
-const DesktopNav = () => {
-  const { setCalendarView, calendarView } = useContext(EventsContext);
-  const linkColor = useColorModeValue(
-    "brand.primary.default",
-    "brand.primary.disabled"
-  );
-  const linkHoverColor = useColorModeValue(
-    "brand.primary.hover",
-    "brand.primary.default"
-  );
-  const bg2 = useColorModeValue("white", "neutrals.gray.400");
-  const input = useColorModeValue("neutrals.light.300", "neutrals.gray.400");
-  return (
-    <Stack direction={"row"} spacing={4}>
-      <Stack
-        spacing={4}
-        direction={{ base: "column", md: "row" }}
-        w={"full"}
-        align={"center"}
-        bg={bg2}
-        pl={4}
-        pr={2}
-        borderRadius={"3xl"}
-        py={1}
-      >
-        <Icon
-          aria-label="Search"
-          bg="transparent"
-          size="lg"
-          color="neutrals.gray.100"
-          borderRadius={"full"}
-          as={BsSearch}
-        />
-        <Input
-          type={"text"}
-          placeholder={"Search your next event"}
-          _placeholder={{ color: "gray.500" }}
-          color="gray.800"
-          bg={input}
-          rounded={"full"}
-          border={0}
-          _focus={{
-            outline: "brand.primary.default",
-          }}
-        />
-      </Stack>
-      <Flex w="160px" align={"center"}>
-        <Link
-          p={2}
-          href={"#"}
-          fontSize={"md"}
-          fontWeight={500}
-          color={linkColor}
-          _hover={{
-            textDecoration: "none",
-            color: linkHoverColor,
-          }}
-          onClick={() => setCalendarView(!calendarView)}
-        >
-          {calendarView ?  'Only events' : 'My calendar'}
-        </Link>
-      </Flex>
-    </Stack>
-  );
-};
+// const DesktopNav = () => {
+//   const { setCalendarView, calendarView } = useContext(EventsContext);
+//   const linkColor = useColorModeValue(
+//     "brand.primary.default",
+//     "brand.primary.disabled"
+//   );
+//   const linkHoverColor = useColorModeValue(
+//     "brand.primary.hover",
+//     "brand.primary.default"
+//   );
+//   const bg2 = useColorModeValue("white", "neutrals.gray.400");
+//   const input = useColorModeValue("neutrals.light.300", "neutrals.gray.400");
+//   return (
+//     <Stack direction={"row"} spacing={4}>
+//       {/* <Stack
+//         spacing={4}
+//         direction={{ base: "column", md: "row" }}
+//         w={"full"}
+//         align={"center"}
+//         bg={bg2}
+//         pl={4}
+//         pr={2}
+//         borderRadius={"3xl"}
+//         py={1}
+//       >
+//         <Icon
+//           aria-label="Search"
+//           bg="transparent"
+//           size="lg"
+//           color="neutrals.gray.100"
+//           borderRadius={"full"}
+//           as={BsSearch}
+//         />
+//         <Input
+//           type={"text"}
+//           placeholder={"Search your next event"}
+//           _placeholder={{ color: "gray.500" }}
+//           color="gray.800"
+//           bg={input}
+//           rounded={"full"}
+//           border={0}
+//           _focus={{
+//             outline: "brand.primary.default",
+//           }}
+//         />
+//       </Stack> */}
+//       <Flex w="160px" align={"center"}>
+//         <Link
+//           p={2}
+//           href={"#"}
+//           fontSize={"md"}
+//           fontWeight={500}
+//           color={linkColor}
+//           _hover={{
+//             textDecoration: "none",
+//             color: linkHoverColor,
+//           }}
+//           onClick={() => setCalendarView(!calendarView)}
+//         >
+//           {calendarView ?  'Events' : 'My calendar'}
+//         </Link>
+//       </Flex>
+//     </Stack>
+//   );
+// };
 
 const MobileNav = () => {
   const bg = useColorModeValue("white", "gray.800");

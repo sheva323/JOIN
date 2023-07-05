@@ -26,6 +26,7 @@ import { EventsContext } from "../context/EventsContext";
 
 export const HighlightEvents = ({}) => {
   const { refresMyEvents } = useContext(EventsContext);
+  const { setCalendarView, calendarView } = useContext(EventsContext);
   const [eventsList, setEventsList] = useState<
     CollectionRecordResponse<any, any>[]
   >([]);
@@ -137,7 +138,8 @@ export const HighlightEvents = ({}) => {
             return null;
           })}
         </Flex>
-        <Button variant="primaryOutline" width="100%">
+        <Button variant="primaryOutline" width="100%" onClick={() => setCalendarView(!calendarView)}
+        >
           View all
         </Button>
       </Box>
