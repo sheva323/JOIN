@@ -11,11 +11,7 @@ import {
   VStack,
   Radio,
   RadioGroup,
-  Switch,
-  FormLabel,
-  FormControl,
   Button,
-  Spacer,
   useColorMode,
 } from "@chakra-ui/react";
 import Image from "next/image";
@@ -23,23 +19,16 @@ import logoLight from "../assets/images/logo.png";
 import logoDark from "../assets/images/logo_dark.png";
 import { EventsContext } from "../context/EventsContext";
 import {
-  AddTagOnEvent,
-  CreateEvent,
   FilterEventsBetweenDates,
-  Platform,
 } from "../helpers/PolybaseData";
 import {
   getUnixTimestampsForThisWeek,
   getUnixTimestampsForToday,
   getUnixTimestampsForWeekend,
 } from "../helpers/DateData";
-import { Tag } from "../types/types";
-import { nanoid } from "nanoid";
-import moment from "moment";
 import { FilterEvent } from "../helpers/FilterFunctions";
 
 import { Polybase } from "@polybase/client";
-import { useCollection, useDocument, usePolybase } from "@polybase/react";
 
 export const SidebarFilters = ({}) => {
   const { colorMode } = useColorMode();
@@ -53,8 +42,8 @@ export const SidebarFilters = ({}) => {
   const [ethereumChecked, setEthereumChecked] = useState(false);
   const [polygonChecked, setPolygonChecked] = useState(false);
   const [bitcoinChecked, setBitcoinChecked] = useState(false);
-  const [isOnline, setIsOnline] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("English");
+  const [isOnline, setIsOnline] = useState(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("All");
 
   const db = new Polybase({
     defaultNamespace: process.env.NEXT_PUBLIC_NAMESPACE,
@@ -73,10 +62,9 @@ export const SidebarFilters = ({}) => {
   const onFilter = async () => {
     try {
       const [startOfDayUnix] = getUnixTimestampsForToday();
-
       const response = await FilterEvent(
         platform,
-        isOnline,
+        location,
         selectedLanguage,
         startOfDayUnix
       );
@@ -92,7 +80,7 @@ export const SidebarFilters = ({}) => {
     setPlatform(event.target.value);
   };
   const handleLocation = (event: ChangeEvent<HTMLInputElement>) => {
-    setPlatform(event.target.value);
+    setLocation(event.target.value);
   };
   return (
     <Box
@@ -245,8 +233,8 @@ export const SidebarFilters = ({}) => {
                   Asia
                 </Radio>
                 <Radio
-                  value="LatAm"
-                  checked={location === "LatAm"}
+                  value="Latam"
+                  checked={location === "Latam"}
                   onChange={handleLocation}
                 >
                   LatAm
@@ -335,6 +323,7 @@ export const SidebarFilters = ({}) => {
                 "neutrals.gray.200"
               )}
               fontWeight={"normal"}
+              defaultValue="All"
             >
               <Stack direction="column">
                 <Radio
@@ -351,10 +340,17 @@ export const SidebarFilters = ({}) => {
                 >
                   Spanish
                 </Radio>
+                <Radio
+                  value="All"
+                  checked={selectedLanguage === "All"}
+                  onChange={handleLanguageChange}
+                >
+                  All
+                </Radio>
               </Stack>
             </RadioGroup>
           </VStack>
-          <VStack
+          {/*<VStack
             p={4}
             borderRadius={"3xl"}
             border={"1px"}
@@ -364,7 +360,7 @@ export const SidebarFilters = ({}) => {
             )}
             width={"100%"}
           >
-            <FormControl display="flex" alignItems="center">
+             <FormControl display="flex" alignItems="center">
               <FormLabel
                 color={useColorModeValue(
                   "neutrals.gray.200",
@@ -382,8 +378,8 @@ export const SidebarFilters = ({}) => {
                 checked={isOnline}
                 defaultChecked={true}
               />
-            </FormControl>
-          </VStack>
+            </FormControl> 
+          </VStack>*/}
           <VStack width="100%">
             <Button variant="primary" width={"70%"} onClick={onFilter}>
               Filter
