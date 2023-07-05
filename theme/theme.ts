@@ -1,10 +1,7 @@
 import { extendTheme, type ThemeConfig } from '@chakra-ui/react';
 import { checkboxTheme } from "../components/Checkbox";
 import { switchTheme } from '../components/Switch'
-
-import {
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { radioTheme } from '../components/Radio'
 
 const config: ThemeConfig = {
   initialColorMode: 'dark',
@@ -134,6 +131,7 @@ const theme = extendTheme({
     },
     Checkbox: checkboxTheme,
     Switch: switchTheme,
+    Radio: radioTheme
   },
  })
 
