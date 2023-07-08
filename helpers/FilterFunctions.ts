@@ -11,7 +11,7 @@ export const FilterEvent = async (
   startDate: number
 ) => {
   try {
-    let query = db.collection("Event");
+    let query: any = db.collection("Event");
     
     if(platform !== "None") {
       query = query.where("platform", "==", platform);
